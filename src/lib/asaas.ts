@@ -1,5 +1,5 @@
 const ASAAS_API_KEY = process.env.ASAAS_API_KEY
-const ASAAS_BASE_URL = process.env.ASAAS_BASE_URL ?? "https://api.asaas.com/api/v3"
+const ASAAS_BASE_URL = process.env.ASAAS_BASE_URL ?? "https://api.asaas.com/v3"
 
 if (!ASAAS_API_KEY) {
   console.warn(
@@ -24,7 +24,7 @@ async function asaasFetch<T>(path: string, init?: RequestInit): Promise<T> {
   }
 
   headers.set("access_token", ASAAS_API_KEY ?? "")
-  headers.set("User-Agent", "crescacomreels_production")
+  headers.set("User-Agent", "crescacomreels")
 
   const response = await fetch(url, {
     ...init,
