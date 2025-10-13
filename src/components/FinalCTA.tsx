@@ -25,7 +25,7 @@ export default function FinalCTA() {
               href="#pricing" 
               className="inline-block px-8 py-4 bg-gradient-to-r from-pink-500 via-orange-500 to-yellow-500 rounded-full font-bold text-lg hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-pink-500/50"
             >
-              SIM, EU QUERO CRESCER NO INSTAGRAM POR R$19,90
+              SIM, EU QUERO CRESCER NO INSTAGRAM POR R$ 9,90
             </a>
 
             <div className="mt-8 flex items-center justify-center space-x-2 text-gray-400 text-sm">

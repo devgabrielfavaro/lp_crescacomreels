@@ -1,9 +1,10 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import { useRouter } from 'next/navigation'
 
 type PaymentPlan = 'monthly' | 'annual'
-type PaymentMethod = 'monthly_card' | 'annual_card' | 'annual_pix' | 'annual_boleto'
+type PaymentMethod = 'monthly_card' | 'annual_card' | 'annual_pix'
 
 type FormState = {
   plan: PaymentPlan
@@ -71,8 +72,8 @@ const PLAN_DETAILS: Record<PaymentPlan, { title: string; description: string; va
   },
   annual: {
     title: 'Assinatura anual',
-    description: 'Economize pagando à vista ou em 12x de R$ 9,90.',
-    value: 118.8,
+    description: 'R$ 118,80 dividido em 12x sem juros no cartão de crédito.',
+    value: 9.9,
   },
 }
 
@@ -80,19 +81,38 @@ const METHOD_LABELS: Record<PaymentMethod, string> = {
   monthly_card: 'Cartão de crédito',
   annual_card: 'Cartão em 12x',
   annual_pix: 'Pix à vista',
-  annual_boleto: 'Boleto bancário',
 }
 
 const METHOD_DESCRIPTIONS: Record<PaymentMethod, string> = {
   monthly_card: 'Renova mensalmente. Você pode cancelar quando quiser.',
-  annual_card: '12 parcelas fixas de R$ 9,90 no cartão de crédito.',
+  annual_card: '12x de R$ 9,90 no cartão de crédito.',
   annual_pix: 'Liberação imediata após confirmação do pagamento.',
-  annual_boleto: 'Receba o boleto por e-mail com vencimento em 3 dias.',
 }
 
 const AVAILABLE_METHODS: Record<PaymentPlan, PaymentMethod[]> = {
   monthly: ['monthly_card'],
-  annual: ['annual_card', 'annual_pix', 'annual_boleto'],
+  annual: ['annual_card', 'annual_pix'],
+}
+
+function getPlanFromHash(hash: string): PaymentPlan | null {
+  if (!hash.startsWith('#checkout')) {
+    return null
+  }
+
+  const [, queryString] = hash.split('?')
+
+  if (!queryString) {
+    return null
+  }
+
+  const params = new URLSearchParams(queryString)
+  const planParam = params.get('plan')
+
+  if (planParam === 'annual' || planParam === 'monthly') {
+    return planParam
+  }
+
+  return null
 }
 
 function formatCurrency(value: number) {
@@ -104,12 +124,73 @@ function requiresCard(method: PaymentMethod) {
 }
 
 export default function PaymentSection() {
-  const [form, setForm] = useState<FormState>(INITIAL_FORM)
+  const router = useRouter()
+  const [form, setForm] = useState<FormState>(() => {
+    if (typeof window !== 'undefined') {
+      const planFromHash = getPlanFromHash(window.location.hash)
+
+      if (planFromHash) {
+        return {
+          ...INITIAL_FORM,
+          plan: planFromHash,
+          paymentMethod: AVAILABLE_METHODS[planFromHash][0],
+        }
+      }
+    }
+
+    return { ...INITIAL_FORM }
+  })
   const [status, setStatus] = useState<StatusState>({ type: 'idle' })
   const [isLoadingCep, setIsLoadingCep] = useState(false)
   const [cepError, setCepError] = useState<string | null>(null)
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null)
   const lastConsultedCepRef = useRef<string | null>(null)
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const applyPlan = (plan: PaymentPlan) => {
+      setForm((previous) => {
+        const defaultMethod = AVAILABLE_METHODS[plan][0]
+
+        if (previous.plan === plan && previous.paymentMethod === defaultMethod) {
+          return previous
+        }
+
+        return {
+          ...previous,
+          plan,
+          paymentMethod: defaultMethod,
+        }
+      })
+    }
+
+    const syncPlanFromHash = () => {
+      const planFromHash = getPlanFromHash(window.location.hash)
+
+      if (planFromHash) {
+        applyPlan(planFromHash)
+      }
+    }
+
+    const handleSelectPlan = (event: Event) => {
+      const customEvent = event as CustomEvent<{ plan?: PaymentPlan }>
+      const plan = customEvent.detail?.plan
+
+      if (plan && AVAILABLE_METHODS[plan]) {
+        applyPlan(plan)
+      }
+    }
+
+    syncPlanFromHash()
+    window.addEventListener('hashchange', syncPlanFromHash)
+    window.addEventListener('selectPlan', handleSelectPlan as EventListener)
+
+    return () => {
+      window.removeEventListener('hashchange', syncPlanFromHash)
+      window.removeEventListener('selectPlan', handleSelectPlan as EventListener)
+    }
+  }, [])
 
   // Effect para consultar CEP automaticamente com debounce
   useEffect(() => {
@@ -221,7 +302,7 @@ export default function PaymentSection() {
         complement: data.complemento || prev.complement, // Mantém o complemento existente se houver
       }))
 
-    } catch (error) {
+    } catch {
       setCepError('Erro ao consultar CEP. Tente novamente.')
     } finally {
       setIsLoadingCep(false)
@@ -291,11 +372,7 @@ export default function PaymentSection() {
         return
       }
 
-      setStatus({
-        type: 'success',
-        message: 'Pagamento aprovado! Enviamos o recibo para o seu e-mail.',
-      })
-      setForm(INITIAL_FORM)
+      router.push('/obrigado')
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Erro inesperado ao processar o pagamento.'
       setStatus({ type: 'error', message })
@@ -334,7 +411,7 @@ export default function PaymentSection() {
                           paymentMethod: AVAILABLE_METHODS[plan][0],
                         }))
                       }
-                      className={`rounded-2xl border p-4 text-left transition-all duration-300 ${
+                      className={`rounded-2xl border p-4 text-left transition-all duration-300 relative ${
                         form.plan === plan
                           ? 'border-pink-500/70 bg-gradient-to-r from-pink-500/10 to-orange-500/10'
                           : 'border-white/10 hover:border-pink-500/40'
@@ -345,6 +422,17 @@ export default function PaymentSection() {
                         <span className="text-sm text-pink-300">{formatCurrency(PLAN_DETAILS[plan].value)}</span>
                       </div>
                       <p className="text-sm text-gray-400 mt-2">{PLAN_DETAILS[plan].description}</p>
+                      
+                      {/* Selo de desconto para plano anual */}
+                      {plan === 'annual' && (
+                        <div className="absolute -bottom-3 -right-4 w-14 h-14">
+                          <img 
+                            src="/desconto-49.svg" 
+                            alt="49% de desconto" 
+                            className="w-full h-full object-contain drop-shadow-lg"
+                          />
+                        </div>
+                      )}
                     </button>
                   ))}
                 </div>
@@ -365,9 +453,21 @@ export default function PaymentSection() {
                   >
                     <div className="flex items-center justify-between gap-4">
                       <div className="flex items-center gap-3">
-                        <span className="text-2xl">
-                          {method === 'annual_pix' ? '⚡' : method === 'annual_boleto' ? '🧾' : '💳'}
-                        </span>
+                        <div className="w-8 h-8 flex items-center justify-center">
+                          {method === 'annual_pix' ? (
+                            <img 
+                              src="/logo_pix.png" 
+                              alt="Pix" 
+                              className="w-10 h-10 object-contain"
+                            />
+                          ) : (
+                            <img 
+                              src="/cartao-de-credito.png" 
+                              alt="Cartão de Crédito" 
+                              className="w-6 h-6 object-contain"
+                            />
+                          )}
+                        </div>
                         <div>
                           <p className="text-base font-semibold text-white">{METHOD_LABELS[method]}</p>
                           <p className="text-xs text-gray-400">{METHOD_DESCRIPTIONS[method]}</p>

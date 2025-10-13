@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 
 export default function Pricing() {
@@ -21,10 +23,11 @@ export default function Pricing() {
     },
     {
       id: 'monthly',
+      badge: 'Menos de R$ 0,67 por dia',
       title: 'Plano Mensal',
       price: 'R$ 19,90',
       billing: '/mês',
-      note: 'Menos de R$ 0,67 por dia. Pagamento mês a mês, cancele quando quiser.',
+      note: 'Assinatura mensal, com possibilidade de cancelar quando quiser.',
       cta: 'QUERO O PLANO MENSAL'
     }
   ]
@@ -32,7 +35,7 @@ export default function Pricing() {
   const guarantees = [
     { icon: '🔓', text: 'Cancele quando quiser: Sem burocracia ou fidelidade.' },
     { icon: '✅', text: '7 Dias de Garantia: Se não amar, peça seu dinheiro de volta. Simples assim.' },
-    { icon: '🔒', text: 'Pagamento Seguro: Pague com Pix, Cartão de Crédito ou Boleto em um ambiente 100% seguro.' }
+    { icon: '🔒', text: 'Pagamento Seguro: Pague com Pix ou Cartão de Crédito em um ambiente 100% seguro.' }
   ]
 
   return (
@@ -41,7 +44,7 @@ export default function Pricing() {
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6">
             Comece a crescer hoje por menos de{' '}
-            <span className="gradient-text">R$0,70 por dia</span>
+            <span className="gradient-text">R$0,33 por dia</span>
           </h2>
           <p className="text-lg text-gray-300">
             Escolha o plano ideal e comece a receber ideias certeiras todos os dias.
@@ -59,7 +62,11 @@ export default function Pricing() {
               <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-pink-500/10 to-orange-500/10 rounded-full blur-3xl -z-10"></div>
 
               {plan.badge && (
-                <span className="inline-block px-4 py-1 bg-gradient-to-r from-pink-500 to-orange-500 text-xs font-semibold uppercase tracking-widest text-white rounded-full mb-6">
+                <span className={`inline-block px-4 py-1 text-xs font-semibold uppercase tracking-widest text-white rounded-full mb-6 ${
+                  plan.highlight 
+                    ? 'bg-gradient-to-r from-pink-500 to-orange-500' 
+                    : 'bg-white/10'
+                }`}>
                   {plan.badge}
                 </span>
               )}
@@ -90,8 +97,23 @@ export default function Pricing() {
                 ))}
               </div>
 
-              <a
-                href="#checkout"
+              <button
+                type="button"
+                onClick={() => {
+                  const planId = plan.id as 'monthly' | 'annual'
+                  const event = new CustomEvent('selectPlan', { detail: { plan: planId } })
+                  window.dispatchEvent(event)
+
+                  const checkoutSection = document.getElementById('checkout')
+                  if (checkoutSection) {
+                    checkoutSection.scrollIntoView({ behavior: 'smooth' })
+                  }
+
+                  const [, hashQuery] = window.location.hash.split('?')
+                  const params = new URLSearchParams(hashQuery || '')
+                  params.set('plan', planId)
+                  window.location.hash = `checkout?${params.toString()}`
+                }}
                 className={`block w-full py-4 rounded-full font-bold text-lg text-center transition-transform duration-300 hover:scale-105 ${
                   plan.highlight
                     ? 'bg-gradient-to-r from-pink-500 via-orange-500 to-yellow-500 shadow-2xl hover:shadow-pink-500/50'
@@ -99,7 +121,7 @@ export default function Pricing() {
                 }`}
               >
                 {plan.cta}
-              </a>
+              </button>
             </div>
           ))}
         </div>

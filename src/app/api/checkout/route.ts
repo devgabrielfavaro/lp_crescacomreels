@@ -11,7 +11,7 @@ import {
 
 type CheckoutRequest = {
   plan: "monthly" | "annual";
-  paymentMethod: "monthly_card" | "annual_card" | "annual_pix" | "annual_boleto";
+  paymentMethod: "monthly_card" | "annual_card" | "annual_pix";
   customer: {
     name: string;
     email?: string;
@@ -146,21 +146,6 @@ export async function POST(request: Request) {
       });
     }
 
-    if (body.paymentMethod === "annual_boleto") {
-      const payment = await createLeanPayment({
-        customerId: customer.id,
-        billingType: "BOLETO",
-        description: "Plano anual Cresça com Reels (boleto à vista)",
-        value: 118.8,
-        dueDate,
-      });
-
-      return NextResponse.json({
-        success: true,
-        type: "boleto",
-        payment,
-      });
-    }
 
     return NextResponse.json(
       { error: "Forma de pagamento não suportada." },
