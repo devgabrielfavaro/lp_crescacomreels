@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Solution() {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8">
+    <section className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
         <div className="glass-card rounded-3xl p-8 sm:p-12 text-center">
           <div className="mb-8">
@@ -15,7 +15,7 @@ export default function Solution() {
             </h2>
           </div>
 
-          <div className="mb-8">
+          <div className="mb-6 sm:mb-8">
             <p className="text-xl sm:text-2xl text-gray-200 leading-relaxed mb-6">
               Apresentamos o <span className="gradient-text font-bold">Desafio Cresça com Reels</span>, 
               a plataforma que entrega diariamente um plano completo e personalizado para você criar Reels 

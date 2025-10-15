@@ -380,9 +380,9 @@ export default function PaymentSection() {
   }
 
   return (
-    <section id="checkout" className="py-20 px-4 sm:px-6 lg:px-8">
+    <section id="checkout" className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
           <span className="inline-block px-4 py-2 bg-gradient-to-r from-pink-500/20 to-orange-500/20 rounded-full text-sm font-semibold mb-4">
             GARANTA SEU ACESSO
           </span>
@@ -394,8 +394,8 @@ export default function PaymentSection() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
-          <div className="glass-card rounded-3xl p-8 sm:p-10 space-y-8">
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8">
+          <div className="glass-card rounded-3xl p-8 sm:p-10 space-y-6 sm:space-y-8">
             <div className="space-y-6">
               <div className="bg-white/5 rounded-2xl p-6">
                 <p className="text-sm font-semibold text-gray-300 uppercase tracking-wide">Selecione o plano</p>
@@ -492,7 +492,7 @@ export default function PaymentSection() {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="glass-card rounded-3xl p-8 sm:p-10 space-y-6">
+          <form onSubmit={handleSubmit} className="glass-card rounded-3xl p-8 sm:p-10 space-y-5 sm:space-y-6">
             <div>
               <h3 className="text-2xl font-semibold text-white">Dados do comprador</h3>
               <p className="text-sm text-gray-400">

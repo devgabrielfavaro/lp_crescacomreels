@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function FinalCTA() {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8">
+    <section className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
         <div className="glass-card rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden">
           {/* Decorative gradient blobs */}

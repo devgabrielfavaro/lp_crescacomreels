@@ -11,9 +11,9 @@ export default function ForWho() {
   ]
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8">
+    <section className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6">
             O Desafio Cresça com Reels é{' '}
             <span className="gradient-text">perfeito para</span>

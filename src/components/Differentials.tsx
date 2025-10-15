@@ -2,16 +2,16 @@ import React from 'react'
 
 export default function Differentials() {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8">
+    <section className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6">
             O Fim do <span className="gradient-text">Conteúdo Genérico</span>
           </h2>
         </div>
 
         <div className="glass-card rounded-3xl p-8 sm:p-12">
-          <div className="mb-8">
+          <div className="mb-6 sm:mb-8">
             <p className="text-xl sm:text-2xl text-gray-200 leading-relaxed text-center">
               Esqueça as dicas que servem para todo mundo e ao mesmo tempo para ninguém. 
               Nossa inteligência analisa as informações do seu negócio para criar sugestões 

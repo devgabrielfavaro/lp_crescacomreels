@@ -39,9 +39,9 @@ export default function Pricing() {
   ]
 
   return (
-    <section id="pricing" className="py-20 px-4 sm:px-6 lg:px-8">
+    <section id="pricing" className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6">
             Comece a crescer hoje por menos de{' '}
             <span className="gradient-text">R$0,33 por dia</span>
@@ -126,7 +126,7 @@ export default function Pricing() {
           ))}
         </div>
 
-        <div className="glass-card rounded-3xl p-8 sm:p-12 mt-10 border border-white/5">
+        <div className="glass-card rounded-3xl p-8 sm:p-12 mt-8 sm:mt-10 border border-white/5">
           <div className="space-y-4 md:flex md:items-start md:space-x-6 md:space-y-0">
             {guarantees.map((guarantee, index) => (
               <div key={index} className="flex items-start space-x-3 md:flex-1">
