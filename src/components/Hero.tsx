@@ -37,7 +37,7 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-4 sm:pt-12">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-[55%_45%] gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[55%_45%] gap-6 lg:gap-12 items-center">
           {/* Vídeo do lado esquerdo */}
           <div className="order-1 lg:order-1 animate-fade-in-left">
             <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl">
