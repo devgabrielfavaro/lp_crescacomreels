@@ -18,7 +18,7 @@ export default function PoliticaDePrivacidade() {
           
           <div className="prose prose-invert prose-purple max-w-none text-gray-300 space-y-6">
             <p>
-              A sua privacidade é fundamental para nós. Esta Política de Privacidade descreve como a <strong>53.955.859 ANNA BEATRIZ SABINO FERRARI</strong>, inscrita no CNPJ sob o nº <strong>53.955.859/0001-10</strong> ("Nós", "Empresa"), controladora dos seus dados, coleta, utiliza, armazena e compartilha suas informações pessoais ao utilizar o site <strong>https://crescacomreels.com.br</strong> ("Site").
+              A sua privacidade é fundamental para nós. Esta Política de Privacidade descreve como a <strong>53.955.859 ANNA BEATRIZ SABINO FERRARI</strong>, inscrita no CNPJ sob o nº <strong>53.955.859/0001-10</strong> (&quot;Nós&quot;, &quot;Empresa&quot;), controladora dos seus dados, coleta, utiliza, armazena e compartilha suas informações pessoais ao utilizar o site <strong>https://crescacomreels.com.br</strong> (&quot;Site&quot;).
             </p>
             
             <p>Esta política foi elaborada em conformidade com a Lei Geral de Proteção de Dados Pessoais (LGPD) - Lei nº 13.709/2018.</p>

@@ -20,7 +20,7 @@ export default function TermosDeUso() {
             <p>Bem-vindo(a) ao <strong>Cresça com Reels</strong>!</p>
             
             <p>
-              Estes Termos de Uso ("Termos") regem o seu acesso e uso do site <strong>https://crescacomreels.com.br</strong> ("Site") e de todos os serviços, conteúdos e produtos oferecidos pela empresa <strong>53.955.859 ANNA BEATRIZ SABINO FERRARI</strong>, inscrita no CNPJ sob o nº <strong>53.955.859/0001-10</strong> ("Nós", "Empresa").
+              Estes Termos de Uso (&quot;Termos&quot;) regem o seu acesso e uso do site <strong>https://crescacomreels.com.br</strong> (&quot;Site&quot;) e de todos os serviços, conteúdos e produtos oferecidos pela empresa <strong>53.955.859 ANNA BEATRIZ SABINO FERRARI</strong>, inscrita no CNPJ sob o nº <strong>53.955.859/0001-10</strong> (&quot;Nós&quot;, &quot;Empresa&quot;).
             </p>
             
             <p>
@@ -29,7 +29,7 @@ export default function TermosDeUso() {
 
             <h2 className="text-2xl font-bold text-white mt-8 mb-4">1. Objeto do Serviço</h2>
             <p>
-              O Cresça com Reels é uma plataforma online que oferece um serviço de criação e disponibilização de conteúdos, estratégias e materiais ("Conteúdo") destinados a auxiliar os usuários a criarem postagens para redes sociais. O acesso ao conteúdo completo da plataforma é concedido mediante cadastro e confirmação de pagamento.
+              O Cresça com Reels é uma plataforma online que oferece um serviço de criação e disponibilização de conteúdos, estratégias e materiais (&quot;Conteúdo&quot;) destinados a auxiliar os usuários a criarem postagens para redes sociais. O acesso ao conteúdo completo da plataforma é concedido mediante cadastro e confirmação de pagamento.
             </p>
 
             <h2 className="text-2xl font-bold text-white mt-8 mb-4">2. Acesso e Cadastro</h2>
@@ -68,7 +68,7 @@ export default function TermosDeUso() {
 
             <h2 className="text-2xl font-bold text-white mt-8 mb-4">7. Limitação de Responsabilidade</h2>
             <p>
-              <strong>7.1.</strong> Nosso serviço é fornecido "como está". Não garantimos que o uso do nosso conteúdo resultará em viralização, engajamento ou qualquer métrica de desempenho específica em suas redes sociais.
+              <strong>7.1.</strong> Nosso serviço é fornecido &quot;como está&quot;. Não garantimos que o uso do nosso conteúdo resultará em viralização, engajamento ou qualquer métrica de desempenho específica em suas redes sociais.
             </p>
             <p>
               <strong>7.2.</strong> Não nos responsabilizamos por quaisquer danos diretos ou indiretos decorrentes do uso ou da incapacidade de usar nosso serviço, incluindo falhas técnicas, interrupções ou instabilidade da plataforma.
