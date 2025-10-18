@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Footer() {
   return (
@@ -15,6 +16,23 @@ export default function Footer() {
           />
           <span className="font-semibold gradient-text">Desafio Cresça com Reels</span>
         </div>
+        
+        <div className="flex items-center justify-center space-x-4 mb-4">
+          <Link 
+            href="/politica-de-privacidade" 
+            className="text-gray-400 hover:text-purple-400 text-sm transition-colors"
+          >
+            Política de Privacidade
+          </Link>
+          <span className="text-gray-600">|</span>
+          <Link 
+            href="/termos-de-uso" 
+            className="text-gray-400 hover:text-purple-400 text-sm transition-colors"
+          >
+            Termos de Uso
+          </Link>
+        </div>
+        
         <p className="text-gray-400 text-sm">© 2025 Desafio Cresça com Reels. Todos os direitos reservados.</p>
       </div>
     </footer>
