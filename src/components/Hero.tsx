@@ -35,7 +35,7 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-4 sm:pt-12">
+    <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-6 pb-12 sm:pt-6 sm:pb-16">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-[55%_45%] gap-6 lg:gap-12 items-center">
           {/* Vídeo do lado esquerdo */}
@@ -45,7 +45,7 @@ export default function Hero() {
                 ref={iframeRef}
                 width="560"
                 height="315"
-                src="https://www.youtube.com/embed/2wbT77Kec5c?si=5X3QyD2JP0AkoZbH&controls=0&autoplay=1&mute=1&enablejsapi=1"
+                src="https://www.youtube.com/embed/QqnvPZYAuLY?si=xcplnwfgjpmm3u8C&controls=0&autoplay=1&mute=1&enablejsapi=1"
                 title="YouTube video player"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -75,7 +75,7 @@ export default function Hero() {
           {/* Texto do lado direito */}
           <div className="order-2 lg:order-2 text-center lg:text-left animate-fade-in-right">
             <div className="mb-6">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 leading-tight">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 leading-none">
                 Destrave seu crescimento no Instagram com{' '}
                 <span className="gradient-text">ideias de Reels virais</span>, todos os dias.
               </h1>

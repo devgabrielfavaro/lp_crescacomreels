@@ -10,7 +10,6 @@ import ForWho from '@/components/ForWho'
 import FAQ from '@/components/FAQ'
 import FinalCTA from '@/components/FinalCTA'
 import Footer from '@/components/Footer'
-import PaymentSection from '@/components/PaymentSection'
 
 export default function Home() {
   return (
@@ -18,7 +17,7 @@ export default function Home() {
       <Header />
 
       {/* Main Content */}
-      <main className="pt-24 sm:pt-20">
+      <main>
         <Hero />
         <Problem />
         <Solution />
@@ -28,7 +27,6 @@ export default function Home() {
         <Pricing />
         <ForWho />
         <FAQ />
-        <PaymentSection />
         <FinalCTA />
       </main>
 

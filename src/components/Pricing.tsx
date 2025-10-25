@@ -19,7 +19,8 @@ export default function Pricing() {
       billing: '/mês',
       note: 'Cobrança anual única de R$ 118,80. Economize escolhendo o plano anual.',
       cta: 'QUERO O PLANO ANUAL',
-      highlight: true
+      highlight: true,
+      link: 'https://pay.kiwify.com.br/AcfMU6c'
     },
     {
       id: 'monthly',
@@ -28,7 +29,8 @@ export default function Pricing() {
       price: 'R$ 19,90',
       billing: '/mês',
       note: 'Assinatura mensal, com possibilidade de cancelar quando quiser.',
-      cta: 'QUERO O PLANO MENSAL'
+      cta: 'QUERO O PLANO MENSAL',
+      link: 'https://pay.kiwify.com.br/qH2vvqf'
     }
   ]
 
@@ -97,23 +99,10 @@ export default function Pricing() {
                 ))}
               </div>
 
-              <button
-                type="button"
-                onClick={() => {
-                  const planId = plan.id as 'monthly' | 'annual'
-                  const event = new CustomEvent('selectPlan', { detail: { plan: planId } })
-                  window.dispatchEvent(event)
-
-                  const checkoutSection = document.getElementById('checkout')
-                  if (checkoutSection) {
-                    checkoutSection.scrollIntoView({ behavior: 'smooth' })
-                  }
-
-                  const [, hashQuery] = window.location.hash.split('?')
-                  const params = new URLSearchParams(hashQuery || '')
-                  params.set('plan', planId)
-                  window.location.hash = `checkout?${params.toString()}`
-                }}
+              <a
+                href={plan.link}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`block w-full py-4 rounded-full font-bold text-lg text-center transition-transform duration-300 hover:scale-105 ${
                   plan.highlight
                     ? 'bg-gradient-to-r from-pink-500 via-orange-500 to-yellow-500 shadow-2xl hover:shadow-pink-500/50'
@@ -121,7 +110,7 @@ export default function Pricing() {
                 }`}
               >
                 {plan.cta}
-              </button>
+              </a>
             </div>
           ))}
         </div>
