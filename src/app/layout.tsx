@@ -59,15 +59,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div className="relative min-h-screen overflow-x-hidden">
           {children}
         </div>
-        
-        <Script id="mautic-tracking" strategy="afterInteractive">
-          {`(function(w,d,t,u,n,a,m){w['MauticTrackingObject']=n;
-              w[n]=w[n]||function(){(w[n].q=w[n].q||[]).push(arguments)},a=d.createElement(t),
-              m=d.getElementsByTagName(t)[0];a.async=1;a.src=u;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','https://syonlogic-mautic5-web.9lmil5.easypanel.host/mtc.js','mt');
-
-          mt('send', 'pageview');`}
-        </Script>
       </body>
     </html>
   );

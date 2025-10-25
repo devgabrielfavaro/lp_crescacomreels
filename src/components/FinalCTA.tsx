@@ -22,7 +22,7 @@ export default function FinalCTA() {
             </p>
 
             <a 
-              href="https://pay.kiwify.com.br/AcfMU6c"
+              href="https://pay.kiwify.com.br/lscSDbi"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block px-8 py-4 bg-gradient-to-r from-pink-500 via-orange-500 to-yellow-500 rounded-full font-bold text-lg hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-pink-500/50"

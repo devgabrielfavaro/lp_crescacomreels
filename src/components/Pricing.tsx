@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Image from 'next/image'
 
 export default function Pricing() {
   const features = [
@@ -30,7 +31,7 @@ export default function Pricing() {
       billing: '/mês',
       note: 'Assinatura mensal, com possibilidade de cancelar quando quiser.',
       cta: 'QUERO O PLANO MENSAL',
-      link: 'https://pay.kiwify.com.br/qH2vvqf'
+      link: 'https://pay.kiwify.com.br/lscSDbi'
     }
   ]
 
@@ -42,7 +43,7 @@ export default function Pricing() {
 
   return (
     <section id="pricing" className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6">
             Comece a crescer hoje por menos de{' '}
@@ -53,15 +54,28 @@ export default function Pricing() {
           </p>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-2">
+        <div className="grid gap-10 lg:grid-cols-2">
           {plans.map((plan) => (
             <div
               key={plan.id}
-              className={`glass-card rounded-3xl p-8 sm:p-10 relative overflow-hidden border ${
+              className={`glass-card rounded-3xl p-8 sm:p-10 relative border ${
                 plan.highlight ? 'border-pink-500/40 shadow-2xl shadow-pink-500/20' : 'border-white/5'
               }`}
             >
               <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-pink-500/10 to-orange-500/10 rounded-full blur-3xl -z-10"></div>
+              
+              {/* Ícone de desconto para o plano anual */}
+              {plan.highlight && (
+                <div className="absolute sm:-top-6 sm:-right-6 -top-8 -right-4">
+                  <Image 
+                    src="/desconto-49.svg" 
+                    alt="49% de desconto" 
+                    width={120}
+                    height={120}
+                    className="w-18 h-18 sm:w-20 sm:h-20"
+                  />
+                </div>
+              )}
 
               {plan.badge && (
                 <span className={`inline-block px-4 py-1 text-xs font-semibold uppercase tracking-widest text-white rounded-full mb-6 ${
