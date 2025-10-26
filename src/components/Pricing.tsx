@@ -21,7 +21,7 @@ export default function Pricing() {
       note: 'Cobrança anual única de R$ 118,80. Economize escolhendo o plano anual.',
       cta: 'QUERO O PLANO ANUAL',
       highlight: true,
-      link: 'https://pay.kiwify.com.br/AcfMU6c'
+      link: 'https://pay.kiwify.com.br/lscSDbi'
     },
     {
       id: 'monthly',
@@ -31,7 +31,7 @@ export default function Pricing() {
       billing: '/mês',
       note: 'Assinatura mensal, com possibilidade de cancelar quando quiser.',
       cta: 'QUERO O PLANO MENSAL',
-      link: 'https://pay.kiwify.com.br/lscSDbi'
+      link: 'https://pay.kiwify.com.br/0ualGYI'
     }
   ]
 
