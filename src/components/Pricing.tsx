@@ -21,7 +21,7 @@ export default function Pricing() {
       note: 'Cobrança anual única de R$ 118,80. Economize escolhendo o plano anual.',
       cta: 'QUERO O PLANO ANUAL',
       highlight: true,
-      link: 'https://pay.kiwify.com.br/lscSDbi'
+      link: 'https://pay.kiwify.com.br/tbMBa9p'
     },
     {
       id: 'monthly',
