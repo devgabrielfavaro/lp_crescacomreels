@@ -1,6 +1,15 @@
-import React from 'react'
+"use client"
+
+import React, { useState } from 'react'
+import PreCheckoutPopup from './PreCheckoutPopup'
 
 export default function FinalCTA() {
+  const [popupOpen, setPopupOpen] = useState(false)
+
+  const handleCTAClick = () => {
+    setPopupOpen(true)
+  }
+
   return (
     <section className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
@@ -21,14 +30,12 @@ export default function FinalCTA() {
               O próximo viral pode ser seu.
             </p>
 
-            <a 
-              href="https://pay.kiwify.com.br/tbMBa9p"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button 
+              onClick={handleCTAClick}
               className="inline-block px-8 py-4 bg-gradient-to-r from-pink-500 via-orange-500 to-yellow-500 rounded-full font-bold text-lg hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-pink-500/50"
             >
               SIM, EU QUERO CRESCER NO INSTAGRAM POR R$ 9,90
-            </a>
+            </button>
 
             <div className="mt-8 flex items-center justify-center space-x-2 text-gray-400 text-sm">
               <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
@@ -39,6 +46,14 @@ export default function FinalCTA() {
           </div>
         </div>
       </div>
+
+      {/* Pre-checkout popup */}
+      <PreCheckoutPopup
+        isOpen={popupOpen}
+        onClose={() => setPopupOpen(false)}
+        planType="annual"
+        checkoutUrl="https://pay.kiwify.com.br/tbMBa9p"
+      />
     </section>
   )
 }

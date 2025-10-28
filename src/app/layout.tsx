@@ -38,6 +38,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           </Script>
         </>
       )}
+      <Script id="mautic-script" strategy="afterInteractive">
+        {`/** This section is only needed once per page if manually copying **/
+if (typeof MauticSDKLoaded == 'undefined') {
+    var MauticSDKLoaded = true;
+    var head            = document.getElementsByTagName('head')[0];
+    var script          = document.createElement('script');
+    script.type         = 'text/javascript';
+    script.src          = 'https://mautic.syonlogic.com/media/js/mautic-form.js?v71599d84';
+    script.onload       = function() {
+        MauticSDK.onLoad();
+    };
+    head.appendChild(script);
+    var MauticDomain = 'https://mautic.syonlogic.com';
+    var MauticLang   = {
+        'submittingMessage': "Please wait..."
+    }
+}else if (typeof MauticSDK != 'undefined') {
+    MauticSDK.onLoad();
+}`}
+      </Script>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {gtmId && (
           <noscript>

@@ -1,9 +1,18 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
+import PreCheckoutPopup from './PreCheckoutPopup'
 
 export default function Pricing() {
+  const [popupOpen, setPopupOpen] = useState(false)
+  const [selectedPlan, setSelectedPlan] = useState<{type: 'annual' | 'monthly', url: string} | null>(null)
+
+  const handlePlanClick = (planType: 'annual' | 'monthly', url: string) => {
+    setSelectedPlan({ type: planType, url })
+    setPopupOpen(true)
+  }
+
   const features = [
     'Acesso Ilimitado à Plataforma',
     'Ideias de Conteúdo Personalizadas Diariamente',
@@ -113,10 +122,8 @@ export default function Pricing() {
                 ))}
               </div>
 
-              <a
-                href={plan.link}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => handlePlanClick(plan.id as 'annual' | 'monthly', plan.link)}
                 className={`block w-full py-4 rounded-full font-bold text-lg text-center transition-transform duration-300 hover:scale-105 ${
                   plan.highlight
                     ? 'bg-gradient-to-r from-pink-500 via-orange-500 to-yellow-500 shadow-2xl hover:shadow-pink-500/50'
@@ -124,7 +131,7 @@ export default function Pricing() {
                 }`}
               >
                 {plan.cta}
-              </a>
+              </button>
             </div>
           ))}
         </div>
@@ -140,6 +147,19 @@ export default function Pricing() {
           </div>
         </div>
       </div>
+
+      {/* Pre-checkout popup */}
+      {selectedPlan && (
+        <PreCheckoutPopup
+          isOpen={popupOpen}
+          onClose={() => {
+            setPopupOpen(false)
+            setSelectedPlan(null)
+          }}
+          planType={selectedPlan.type}
+          checkoutUrl={selectedPlan.url}
+        />
+      )}
     </section>
   )
 }
