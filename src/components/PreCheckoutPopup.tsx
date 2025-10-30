@@ -56,7 +56,7 @@ export default function PreCheckoutPopup({ isOpen, onClose, planType, checkoutUr
     // iOS detection to avoid backdrop-filter on overlay
     if (typeof navigator !== 'undefined') {
       const ua = navigator.userAgent || ""
-      const platform = (navigator as any).platform || ""
+      const platform = (navigator as Navigator).platform || ""
       const isAppleTouch = /iP(hone|od|ad)/.test(platform) || (ua.includes('Mac') && 'ontouchend' in document)
       setIsIOS(isAppleTouch)
     }
