@@ -100,7 +100,7 @@ export default function PreCheckoutPopup({ isOpen, onClose, planType, checkoutUr
 
   if (!isOpen || !mounted) return null
 
-  const overlayClasses = `absolute inset-0 bg-black/80 ${isIOS ? 'no-backdrop-filter' : 'backdrop-blur-sm'}`
+  const overlayClasses = `absolute inset-0 ${isIOS ? 'bg-black/90 no-backdrop-filter' : 'bg-black/80 backdrop-blur-sm'}`
 
   const modal = (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -111,7 +111,7 @@ export default function PreCheckoutPopup({ isOpen, onClose, planType, checkoutUr
       />
       
       {/* Modal content */}
-      <div className="relative w-full max-w-md glass-card no-backdrop-filter rounded-3xl p-8 text-center isolate transform-gpu">
+      <div className={`relative w-full max-w-md glass-card no-backdrop-filter rounded-3xl p-8 text-center isolate transform-gpu ${isIOS ? 'bg-neutral-900/70' : ''}`}>
         {/* Close button */}
         <button
           onClick={onClose}
