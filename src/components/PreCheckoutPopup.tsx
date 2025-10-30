@@ -75,12 +75,8 @@ export default function PreCheckoutPopup({ isOpen, onClose, planType, checkoutUr
       })
       
       setIsSuccess(true)
-      
-      // Redirecionar para checkout após 2 segundos
-      setTimeout(() => {
-        window.open(checkoutUrl, '_blank')
-        onClose()
-      }, 2000)
+      // Redirecionar no mesmo aba para evitar bloqueio de pop-up em dispositivos móveis
+      window.location.href = checkoutUrl
       
     } catch (error) {
       console.error('Erro no formulário:', error)
@@ -101,7 +97,7 @@ export default function PreCheckoutPopup({ isOpen, onClose, planType, checkoutUr
       />
       
       {/* Modal */}
-      <div className="relative w-full max-w-md glass-card rounded-3xl p-8 text-center">
+      <div className="relative w-full max-w-md glass-card no-backdrop-filter rounded-3xl p-8 text-center">
         {/* Close button */}
         <button
           onClick={onClose}
