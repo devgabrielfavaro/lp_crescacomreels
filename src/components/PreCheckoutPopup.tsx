@@ -96,8 +96,12 @@ export default function PreCheckoutPopup({ isOpen, onClose, planType, checkoutUr
         onClick={onClose}
       />
       
-      {/* Modal */}
-      <div className="relative w-full max-w-md glass-card no-backdrop-filter rounded-3xl p-8 text-center">
+      {/* Modal 
+        CORREÇÃO: Adicionada a classe 'isolate' abaixo.
+        Isso cria um novo contexto de empilhamento e corrige o bug de renderização
+        do cursor (caret) em inputs no iOS, causado pelo 'backdrop-blur-sm' do backdrop.
+      */}
+      <div className="relative w-full max-w-md glass-card no-backdrop-filter rounded-3xl p-8 text-center isolate">
         {/* Close button */}
         <button
           onClick={onClose}
