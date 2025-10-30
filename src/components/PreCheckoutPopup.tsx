@@ -92,12 +92,12 @@ export default function PreCheckoutPopup({ isOpen, onClose, planType, checkoutUr
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-black/80 backdrop-blur-sm ios-no-backdrop"
+        className="absolute inset-0 bg-black/80 backdrop-blur-sm"
         onClick={onClose}
       />
       
       {/* Modal */}
-      <div className="relative w-full max-w-md glass-card no-backdrop-filter ios-no-backdrop ios-isolate rounded-3xl p-8 text-center">
+      <div className="relative w-full max-w-md glass-card no-backdrop-filter rounded-3xl p-8 text-center">
         {/* Close button */}
         <button
           onClick={onClose}
@@ -132,7 +132,7 @@ export default function PreCheckoutPopup({ isOpen, onClose, planType, checkoutUr
                   id="nome"
                   name="mauticform[nome]"
                   required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 ios-input-fix"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20"
                   placeholder="Digite seu nome completo"
                 />
               </div>
@@ -146,7 +146,7 @@ export default function PreCheckoutPopup({ isOpen, onClose, planType, checkoutUr
                   id="email"
                   name="mauticform[email]"
                   required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 ios-input-fix"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20"
                   placeholder="Digite seu melhor email"
                 />
               </div>
@@ -162,7 +162,7 @@ export default function PreCheckoutPopup({ isOpen, onClose, planType, checkoutUr
                   value={phoneValue}
                   onChange={handlePhoneChange}
                   required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 ios-input-fix"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20"
                   placeholder="(11) 99999-9999"
                   maxLength={15}
                 />
