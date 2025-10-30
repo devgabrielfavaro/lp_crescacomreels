@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 
 interface PreCheckoutPopupProps {
   isOpen: boolean
@@ -13,6 +14,8 @@ export default function PreCheckoutPopup({ isOpen, onClose, planType, checkoutUr
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [phoneValue, setPhoneValue] = useState('')
+  const [mounted, setMounted] = useState(false)
+  const [isIOS, setIsIOS] = useState(false)
 
   const formatPhoneNumber = (value: string) => {
     // Remove todos os caracteres não numéricos
@@ -49,6 +52,15 @@ export default function PreCheckoutPopup({ isOpen, onClose, planType, checkoutUr
   const currentPlan = planInfo[planType]
 
   useEffect(() => {
+    setMounted(true)
+    // iOS detection to avoid backdrop-filter on overlay
+    if (typeof navigator !== 'undefined') {
+      const ua = navigator.userAgent || ""
+      const platform = (navigator as any).platform || ""
+      const isAppleTouch = /iP(hone|od|ad)/.test(platform) || (ua.includes('Mac') && 'ontouchend' in document)
+      setIsIOS(isAppleTouch)
+    }
+
     if (isOpen) {
       document.body.style.overflow = 'hidden'
     } else {
@@ -86,22 +98,20 @@ export default function PreCheckoutPopup({ isOpen, onClose, planType, checkoutUr
     }
   }
 
-  if (!isOpen) return null
+  if (!isOpen || !mounted) return null
 
-  return (
+  const overlayClasses = `absolute inset-0 bg-black/80 ${isIOS ? 'no-backdrop-filter' : 'backdrop-blur-sm'}`
+
+  const modal = (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+        className={overlayClasses}
         onClick={onClose}
       />
       
-      {/* Modal 
-        CORREÇÃO: Adicionada a classe 'isolate' abaixo.
-        Isso cria um novo contexto de empilhamento e corrige o bug de renderização
-        do cursor (caret) em inputs no iOS, causado pelo 'backdrop-blur-sm' do backdrop.
-      */}
-      <div className="relative w-full max-w-md glass-card no-backdrop-filter rounded-3xl p-8 text-center isolate">
+      {/* Modal content */}
+      <div className="relative w-full max-w-md glass-card no-backdrop-filter rounded-3xl p-8 text-center isolate transform-gpu">
         {/* Close button */}
         <button
           onClick={onClose}
@@ -136,7 +146,7 @@ export default function PreCheckoutPopup({ isOpen, onClose, planType, checkoutUr
                   id="nome"
                   name="mauticform[nome]"
                   required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transform-gpu"
                   placeholder="Digite seu nome completo"
                 />
               </div>
@@ -150,7 +160,7 @@ export default function PreCheckoutPopup({ isOpen, onClose, planType, checkoutUr
                   id="email"
                   name="mauticform[email]"
                   required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transform-gpu"
                   placeholder="Digite seu melhor email"
                 />
               </div>
@@ -166,7 +176,7 @@ export default function PreCheckoutPopup({ isOpen, onClose, planType, checkoutUr
                   value={phoneValue}
                   onChange={handlePhoneChange}
                   required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transform-gpu"
                   placeholder="(11) 99999-9999"
                   maxLength={15}
                 />
@@ -205,4 +215,7 @@ export default function PreCheckoutPopup({ isOpen, onClose, planType, checkoutUr
       </div>
     </div>
   )
+
+  // Render as a portal directly under body to avoid "fixed inside transform" issues
+  return typeof document !== 'undefined' ? createPortal(modal, document.body) : null
 }
