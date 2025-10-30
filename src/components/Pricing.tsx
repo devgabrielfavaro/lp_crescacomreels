@@ -1,16 +1,13 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import Image from 'next/image'
-import PreCheckoutPopup from './PreCheckoutPopup'
+import { useRouter } from 'next/navigation'
 
 export default function Pricing() {
-  const [popupOpen, setPopupOpen] = useState(false)
-  const [selectedPlan, setSelectedPlan] = useState<{type: 'annual' | 'monthly', url: string} | null>(null)
-
+  const router = useRouter()
   const handlePlanClick = (planType: 'annual' | 'monthly', url: string) => {
-    setSelectedPlan({ type: planType, url })
-    setPopupOpen(true)
+    router.push(`/pre-checkout?plan=${planType}&checkout=${encodeURIComponent(url)}`)
   }
 
   const features = [
@@ -148,18 +145,7 @@ export default function Pricing() {
         </div>
       </div>
 
-      {/* Pre-checkout popup */}
-      {selectedPlan && (
-        <PreCheckoutPopup
-          isOpen={popupOpen}
-          onClose={() => {
-            setPopupOpen(false)
-            setSelectedPlan(null)
-          }}
-          planType={selectedPlan.type}
-          checkoutUrl={selectedPlan.url}
-        />
-      )}
+      {/* Popup removido: agora navegamos para /pre-checkout */}
     </section>
   )
 }

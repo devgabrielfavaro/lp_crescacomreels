@@ -1,13 +1,13 @@
 "use client"
 
-import React, { useState } from 'react'
-import PreCheckoutPopup from './PreCheckoutPopup'
+import React from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function FinalCTA() {
-  const [popupOpen, setPopupOpen] = useState(false)
-
+  const router = useRouter()
   const handleCTAClick = () => {
-    setPopupOpen(true)
+    const url = 'https://pay.kiwify.com.br/tbMBa9p'
+    router.push(`/pre-checkout?plan=annual&checkout=${encodeURIComponent(url)}`)
   }
 
   return (
@@ -47,13 +47,7 @@ export default function FinalCTA() {
         </div>
       </div>
 
-      {/* Pre-checkout popup */}
-      <PreCheckoutPopup
-        isOpen={popupOpen}
-        onClose={() => setPopupOpen(false)}
-        planType="annual"
-        checkoutUrl="https://pay.kiwify.com.br/tbMBa9p"
-      />
+      {/* Navegação agora direciona para a página /pre-checkout */}
     </section>
   )
 }
