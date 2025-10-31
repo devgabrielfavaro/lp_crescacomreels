@@ -79,17 +79,23 @@ export default function PreCheckoutClient({
       const phone = phoneValue.replace(/\D/g, ''); // Remove formatação do telefone
       
       // Constrói a URL com os parâmetros
-      const url = new URL(checkoutUrl);
-      
-      // Adiciona os parâmetros se existirem
-      if (name) url.searchParams.append('name', name);
-      if (email) url.searchParams.append('email', email);
-      if (phone) url.searchParams.append('phone', phone);
-      if (fbclid) url.searchParams.append('fbclid', fbclid);
-      
-      window.location.href = url.toString();
-    } catch {
+      try {
+        const url = new URL(checkoutUrl);
+        
+        // Adiciona os parâmetros se existirem
+        if (name) url.searchParams.append('name', name);
+        if (email) url.searchParams.append('email', email);
+        if (phone) url.searchParams.append('phone', phone);
+        if (fbclid) url.searchParams.append('fbclid', fbclid);
+        
+        window.location.href = url.toString();
+      } catch (urlError) {
+        // Se houver erro na URL, apenas redireciona para o checkoutUrl original
+        window.location.href = checkoutUrl;
+      }
+    } catch (submitError) {
       alert("Erro ao enviar formulário. Tente novamente.");
+      console.error('Erro no formulário:', submitError);
     } finally {
       setIsSubmitting(false);
     }

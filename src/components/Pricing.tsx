@@ -8,8 +8,9 @@ export default function Pricing() {
   const router = useRouter()
   
   // URLs dos planos vindas das variáveis de ambiente
-  const annualUrl = process.env.NEXT_PUBLIC_PAYMENT_URL_ANNUAL || ''
-  const monthlyUrl = process.env.NEXT_PUBLIC_PAYMENT_URL_MONTHLY || ''
+  const annualUrl = process.env.NEXT_PUBLIC_PAYMENT_URL_ANNUAL || 'https://pay.kiwify.com.br/tbMBa9p'
+  const monthlyUrl = process.env.NEXT_PUBLIC_PAYMENT_URL_MONTHLY || 'https://pay.kiwify.com.br/0ualGYI'
+  
   const handlePlanClick = (planType: 'annual' | 'monthly', url: string) => {
     // Recupera o fbclid do localStorage
     const fbclid = typeof window !== 'undefined' ? localStorage.getItem('fbclid') : null

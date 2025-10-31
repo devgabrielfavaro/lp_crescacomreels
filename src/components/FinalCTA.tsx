@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 export default function FinalCTA() {
   const router = useRouter()
   const handleCTAClick = () => {
-    const url = process.env.NEXT_PUBLIC_PAYMENT_URL_ANNUAL || ''
+    const url = process.env.NEXT_PUBLIC_PAYMENT_URL_ANNUAL || 'https://pay.kiwify.com.br/tbMBa9p'
     // Recupera o fbclid do localStorage
     const fbclid = typeof window !== 'undefined' ? localStorage.getItem('fbclid') : null
     
