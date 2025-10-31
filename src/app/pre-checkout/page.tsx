@@ -1,13 +1,15 @@
 import PreCheckoutClient from './precheckout-client'
 
-export default function PreCheckoutPage({
+export default async function PreCheckoutPage({
   searchParams,
 }: {
-  searchParams: { plan?: string; checkout?: string }
+  searchParams: Promise<{ plan?: string; checkout?: string; fbclid?: string }>
 }) {
-  const planParam = searchParams?.plan === 'annual' ? 'annual' : 'monthly'
-  const checkout = searchParams?.checkout ?? ''
-  return <PreCheckoutClient planType={planParam} checkoutUrl={checkout} />
+  const params = await searchParams
+  const planParam = params?.plan === 'annual' ? 'annual' : 'monthly'
+  const checkout = params?.checkout ?? ''
+  const fbclid = params?.fbclid ?? ''
+  return <PreCheckoutClient planType={planParam} checkoutUrl={checkout} fbclid={fbclid} />
 }
 
 

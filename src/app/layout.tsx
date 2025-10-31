@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
+import FbclidPreserver from "@/components/FbclidPreserver";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,7 +28,7 @@ export default function RootLayout({
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
   
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
       {gtmId && (
         <>
           <Script id="gtm-script" strategy="afterInteractive">
@@ -77,6 +79,9 @@ if (typeof MauticSDKLoaded == 'undefined') {
           </div>
         </div>
         <div className="relative min-h-screen overflow-x-hidden">
+          <Suspense fallback={null}>
+            <FbclidPreserver />
+          </Suspense>
           {children}
         </div>
       </body>

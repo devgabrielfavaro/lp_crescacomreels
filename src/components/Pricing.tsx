@@ -6,8 +6,21 @@ import { useRouter } from 'next/navigation'
 
 export default function Pricing() {
   const router = useRouter()
+  
+  // URLs dos planos vindas das variáveis de ambiente
+  const annualUrl = process.env.NEXT_PUBLIC_PAYMENT_URL_ANNUAL || ''
+  const monthlyUrl = process.env.NEXT_PUBLIC_PAYMENT_URL_MONTHLY || ''
   const handlePlanClick = (planType: 'annual' | 'monthly', url: string) => {
-    router.push(`/pre-checkout?plan=${planType}&checkout=${encodeURIComponent(url)}`)
+    // Recupera o fbclid do localStorage
+    const fbclid = typeof window !== 'undefined' ? localStorage.getItem('fbclid') : null
+    
+    // Constrói a URL com fbclid se existir
+    let checkoutUrl = `/pre-checkout?plan=${planType}&checkout=${encodeURIComponent(url)}`
+    if (fbclid) {
+      checkoutUrl += `&fbclid=${encodeURIComponent(fbclid)}`
+    }
+    
+    router.push(checkoutUrl)
   }
 
   const features = [
@@ -27,7 +40,7 @@ export default function Pricing() {
       note: 'Cobrança anual única de R$ 118,80. Economize escolhendo o plano anual.',
       cta: 'QUERO O PLANO ANUAL',
       highlight: true,
-      link: 'https://pay.kiwify.com.br/tbMBa9p'
+      link: annualUrl
     },
     {
       id: 'monthly',
@@ -37,7 +50,7 @@ export default function Pricing() {
       billing: '/mês',
       note: 'Assinatura mensal, com possibilidade de cancelar quando quiser.',
       cta: 'QUERO O PLANO MENSAL',
-      link: 'https://pay.kiwify.com.br/0ualGYI'
+      link: monthlyUrl
     }
   ]
 

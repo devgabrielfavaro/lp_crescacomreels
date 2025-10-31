@@ -1,14 +1,16 @@
 "use client"
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 
 export default function PreCheckoutClient({
   planType,
   checkoutUrl,
+  fbclid,
 }: {
   planType: "annual" | "monthly";
   checkoutUrl: string;
+  fbclid?: string;
 }) {
   const router = useRouter();
 
@@ -30,6 +32,10 @@ export default function PreCheckoutClient({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [phoneValue, setPhoneValue] = useState("");
+  
+  // Refs para capturar os valores dos campos
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!checkoutUrl) {
@@ -54,6 +60,11 @@ export default function PreCheckoutClient({
     const form = e.currentTarget;
     const formData = new FormData(form);
 
+    // Adiciona fbclid ao formData se existir
+    if (fbclid) {
+      formData.append('mauticform[fbclid]', fbclid);
+    }
+
     try {
       await fetch("https://mautic.syonlogic.com/form/submit?formId=2", {
         method: "POST",
@@ -61,7 +72,22 @@ export default function PreCheckoutClient({
         mode: "no-cors",
       });
       setIsSuccess(true);
-      window.location.href = checkoutUrl;
+      
+      // Captura os valores dos campos
+      const name = nameRef.current?.value || '';
+      const email = emailRef.current?.value || '';
+      const phone = phoneValue.replace(/\D/g, ''); // Remove formatação do telefone
+      
+      // Constrói a URL com os parâmetros
+      const url = new URL(checkoutUrl);
+      
+      // Adiciona os parâmetros se existirem
+      if (name) url.searchParams.append('name', name);
+      if (email) url.searchParams.append('email', email);
+      if (phone) url.searchParams.append('phone', phone);
+      if (fbclid) url.searchParams.append('fbclid', fbclid);
+      
+      window.location.href = url.toString();
     } catch (err) {
       alert("Erro ao enviar formulário. Tente novamente.");
     } finally {
@@ -95,6 +121,7 @@ export default function PreCheckoutClient({
                     type="text"
                     id="nome"
                     name="mauticform[nome]"
+                    ref={nameRef}
                     required
                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20"
                     placeholder="Digite seu nome completo"
@@ -109,6 +136,7 @@ export default function PreCheckoutClient({
                     type="email"
                     id="email"
                     name="mauticform[email]"
+                    ref={emailRef}
                     required
                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20"
                     placeholder="Digite seu melhor email"
