@@ -88,7 +88,7 @@ export default function PreCheckoutClient({
       if (fbclid) url.searchParams.append('fbclid', fbclid);
       
       window.location.href = url.toString();
-    } catch (err) {
+    } catch {
       alert("Erro ao enviar formulário. Tente novamente.");
     } finally {
       setIsSubmitting(false);

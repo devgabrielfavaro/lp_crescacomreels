@@ -15,8 +15,8 @@ export default function FbclidPreserver() {
       localStorage.setItem('fbclid', fbclid)
       
       // Também envia para o dataLayer do GTM para tracking
-      if (typeof window !== 'undefined' && (window as any).dataLayer) {
-        (window as any).dataLayer.push({
+      if (typeof window !== 'undefined' && 'dataLayer' in window && Array.isArray((window as { dataLayer?: unknown[] }).dataLayer)) {
+        (window as { dataLayer: Array<{ event: string; fbclid: string }> }).dataLayer.push({
           event: 'fbclid_captured',
           fbclid: fbclid
         })
